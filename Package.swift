@@ -1,21 +1,85 @@
-// swift-tools-version: 6.0
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version: 5.9
+// Package.swift
 import PackageDescription
 
 let package = Package(
-    name: "SwiftModernArchitecture",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "SwiftModernArchitecture",
-            targets: ["SwiftModernArchitecture"]),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "SwiftModernArchitecture"),
+  name: "SwiftModernArchitecture",
+  platforms: [
+    .iOS(.v15),
+    .macCatalyst(.v15),
+    .tvOS(.v15),
+    .macOS(.v13),
 
-    ]
+  ],
+  products: [
+    // Main library
+    .library(
+      name: "CoreArch", targets: ["Core"]
+    ),
+    // Individual modules
+    .library(
+      name: "CoreDomain",
+      targets: ["Domain"]
+    ),
+    .library(
+      name: "CorePresentation",
+      targets: ["Presentation"]
+    ),
+    .library(
+      name: "CoreInfrastructure",
+      targets: ["Infrastructure"]
+    ),
+
+  ],
+  targets: [
+    // MARK: Core module that ties everything together
+
+    .target(
+      name: "Core",
+
+      dependencies: [
+        "Domain",
+        "Presentation",
+        "Infrastructure",
+      ],
+      path: "Sources/Core",
+      packageAccess: true
+    ),
+
+    // MARK: Domain layer
+
+    .target(
+      name: "Domain",
+      path: "Sources/Domain"
+    ),
+
+    // MARK: Presentation layer
+
+    .target(
+      name: "Presentation",
+      dependencies: ["Domain"],
+      path: "Sources/Presentation"
+    ),
+
+    // MARK: Infrastructure layer
+
+    .target(
+      name: "Infrastructure",
+      dependencies: ["Domain"],
+      path: "Sources/Infrastructure"
+    ),
+
+    // MARK: - TESTS
+
+    .testTarget(
+      name: "Tests",
+      dependencies: [
+        "Core",
+        "Domain",
+        "Infrastructure",
+        "Presentation",
+      ],
+      path: "Tests"
+    ),
+  ]
 )
