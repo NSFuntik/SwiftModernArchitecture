@@ -76,7 +76,8 @@ public final class ArticlesFeature: Feature {
       return .loaded(articles)
 
     case .refresh:
-      return .loading
+      let articles = try await execute(.all)
+      return .loaded(articles)
 
     case .search(let query):
       let articles = try await execute(.search(query))

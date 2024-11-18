@@ -17,11 +17,12 @@ import XCTest
 final class MockURLProtocol: URLProtocol {
   typealias Handler = (URLRequest) throws -> (URLResponse, Data)
   static var requestHandler: Handler?
-  override class func canInit(with request: URLRequest) -> Bool {
+
+  override static func canInit(with request: URLRequest) -> Bool {
     return true
   }
 
-  override class func canonicalRequest(for request: URLRequest) -> URLRequest {
+  override static func canonicalRequest(for request: URLRequest) -> URLRequest {
     return request
   }
 
@@ -48,7 +49,7 @@ struct MockEndpoint: APIEndpoint {
   var method: HTTPMethod { .get }
 }
 
-class MockRepository<T>: Repository {
+final class MockRepository<T>: Repository {
   typealias Input = Void
   typealias Output = T
   var mockResponse: T?
@@ -70,12 +71,6 @@ final class MockAPIClient: APIClient {
   var mockResponse: Any?
   var error: Error?
   var requestCount = 0
-
-  override func request(_ endpoint: APIEndpoint) async throws -> Data {
-    requestCount += 1
-    if let error = error { throw error }
-    return mockResponse as? Data ?? Data()
-  }
 }
 
 final class MockStorageService: StorageService {
@@ -97,18 +92,17 @@ final class MockStorageService: StorageService {
 }
 
 // MockURLSession implementation
-final class MockURLSession: URLSession, @unchecked Sendable {
+final class MockURLSession: URLSessionProtocol, @unchecked Sendable {
   var nextData: Data?
   var nextResponse: URLResponse?
   var nextError: Error?
 
-  func mockDataTask(for request: URLRequest) async throws -> (Data, URLResponse) {
+  func data(for request: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse) {
     if let error = nextError {
       throw error
     }
-    guard
-      let data = nextData,
-      let response = nextResponse
+    guard let data = nextData,
+          let response = nextResponse
     else {
       throw URLError(.unknown)
     }

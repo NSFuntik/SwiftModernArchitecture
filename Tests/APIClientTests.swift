@@ -27,15 +27,22 @@ final class APIClientTests: XCTestCase {
        
     let expectedResponse = TestResponse(value: "test")
     mockSession.nextData = try JSONEncoder().encode(expectedResponse)
-    mockSession.nextResponse = HTTPURLResponse(url: URL(string: "https://test.com")!, statusCode: 200, httpVersion: nil, headerFields: nil)
+    
+    let testURL = URL(string: "https://github.com/NSFuntik/SwiftModernArchitecture")!
+    mockSession.nextResponse = HTTPURLResponse(url: testURL, statusCode: 200, httpVersion: nil, headerFields: nil)
        
     // When
     let responseData: Data = try await client.request(MockEndpoint())
+    
+    XCTAssertFalse(responseData.isEmpty, "Data is EMPTY")
+    
+    print("Received: \(String(data: responseData, encoding: .utf8) ?? "Unable to convert to string")")
+    
     let response: TestResponse = try JSONDecoder().decode(TestResponse.self, from: responseData)
     // Then
     XCTAssertEqual(response, expectedResponse)
   }
-   
+
   func testFailedRequest() async throws {
     // Given
     mockSession.nextError = URLError(.badServerResponse)

@@ -15,7 +15,7 @@ SwiftModernArchitecture follows Clean Architecture principles with three main la
 The dependencies flow from outer to inner layers: 
 
 ``` 
-Presentation -> Domain -> Infrastructure
+Presentation -> Domain <- Infrastructure
 ```
 
 ## Key Components
