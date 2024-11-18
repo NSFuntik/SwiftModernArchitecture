@@ -28,6 +28,7 @@ public struct ArticlesView: View {
       PaginatedView(source: viewModel.feature, input: { _ in
         searchText.isEmpty ? .all : .search(searchText)
       }) { article in
+        // TODO: Change navigation link to Coordinator
         NavigationLink(destination: ArticleDetailView(article: article)) {
           ArticleRow(article: article)
         }

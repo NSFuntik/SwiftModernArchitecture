@@ -9,8 +9,7 @@ import SwiftUI
 
 /// A view that handles paginated lists with automatic loading
 public struct PaginatedView<Source: Repository, Content: View>: View
-  where Source.Response: RandomAccessCollection, Source.Response.Element: Identifiable
-{
+  where Source.Response: RandomAccessCollection, Source.Response.Element: Identifiable {
   // MARK: - Properties
     
   /// The data source from which the paginated items are fetched.

@@ -46,8 +46,7 @@ public struct LoadableView<Source: Repository, Content: View>: View {
       let output = try await source.execute(input)
       /// Using a generic type to check for emptiness
       if let collection = output as? any Collection,
-         collection.isEmpty
-      {
+         collection.isEmpty {
         state = .empty()
       } else {
         state = .loaded(output)

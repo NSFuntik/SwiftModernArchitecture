@@ -9,14 +9,19 @@ import Combine
 import Domain
 import Foundation
 
+public protocol URLSessionProtocol {
+  func data(for request: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse)
+}
+
+extension URLSession: URLSessionProtocol {}
 /// API client implementation
 open class APIClient {
-  let session: URLSession
+  let session: URLSessionProtocol
   let config: APIConfig
   
   public init(
     config: APIConfig,
-    session: URLSession = .shared
+    session: URLSessionProtocol = URLSession.shared
   ) {
     self.config = config
     self.session = session
@@ -47,7 +52,7 @@ open class APIClient {
     request.httpBody = endpoint.body
        
     do {
-      let (data, response) = try await session.data(for: request)
+      let (data, response) = try await session.data(for: request, delegate: nil)
            
       guard let httpResponse = response as? HTTPURLResponse else {
         throw NetworkError.invalidResponse(String(reflecting: response))
