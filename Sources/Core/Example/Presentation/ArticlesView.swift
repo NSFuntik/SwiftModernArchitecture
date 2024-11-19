@@ -5,8 +5,8 @@
 //  Created by NSFuntik on 11/18/24.
 //
 
-import Domain
-import Presentation
+import CoreDomain
+import CorePresentation
 import SwiftUI
 
 public struct ArticlesView: View {

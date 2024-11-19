@@ -5,9 +5,9 @@
 //  Created by NSFuntik on 11/18/24.
 //
 
-import Domain
+import CoreDomain
 import Foundation
-import Presentation
+import CorePresentation
 
 /// A feature that manages articles, providing functionalities such as fetching, refreshing, and searching articles.
 public final class ArticlesFeature: Feature {

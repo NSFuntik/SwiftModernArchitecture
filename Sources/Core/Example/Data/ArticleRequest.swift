@@ -5,7 +5,7 @@
 //  Created by NSFuntik on 11/18/24.
 //
 import Foundation
-@_exported import Infrastructure
+@_exported import CoreInfrastructure
 
 public enum ArticleRequest {
   case all

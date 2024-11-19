@@ -4,7 +4,7 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-import Domain
+import CoreDomain
 import SwiftUI
 
 /// A view that handles paginated lists with automatic loading

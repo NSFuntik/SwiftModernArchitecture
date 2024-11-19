@@ -4,9 +4,9 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-import Domain
+import CoreDomain
 import Foundation
-import Infrastructure
+import CoreInfrastructure
 
 @MainActor
 public final class ArticlesViewModel: ObservableObject {

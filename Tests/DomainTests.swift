@@ -4,8 +4,8 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-@testable import Domain
-@testable import Presentation
+@testable import CoreDomain
+@testable import CorePresentation
 import XCTest
 
 final class DomainTests: XCTestCase {

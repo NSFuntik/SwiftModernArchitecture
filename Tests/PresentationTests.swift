@@ -5,7 +5,7 @@
 //  Created by NSFuntik on 11/18/24.
 //
 
-@testable import Presentation
+@testable import CorePresentation
 import SwiftUI
 import XCTest
 

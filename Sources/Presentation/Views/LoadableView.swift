@@ -5,7 +5,7 @@
 //  Created by NSFuntik on 11/18/24.
 //
 
-import Domain
+import CoreDomain
 import SwiftUI
 
 /// View container that handles loading states and data fetching

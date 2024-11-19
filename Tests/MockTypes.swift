@@ -4,10 +4,10 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-import Domain
+import CoreDomain
 import Foundation
-import Infrastructure
-import Presentation
+import CoreInfrastructure
+import CorePresentation
 import XCTest
 
 // MARK: - Test Helpers

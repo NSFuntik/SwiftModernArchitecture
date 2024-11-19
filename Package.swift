@@ -14,20 +14,20 @@ let package = Package(
   products: [
     // Main library
     .library(
-      name: "CoreArch", targets: ["Core"]
+      name: "CoreArch", targets: ["CoreArch"]
     ),
     // Individual modules
     .library(
       name: "CoreDomain",
-      targets: ["Domain"]
+      targets: ["CoreDomain"]
     ),
     .library(
       name: "CorePresentation",
-      targets: ["Presentation"]
+      targets: ["CorePresentation"]
     ),
     .library(
       name: "CoreInfrastructure",
-      targets: ["Infrastructure"]
+      targets: ["CoreInfrastructure"]
     ),
 
   ],
@@ -35,12 +35,12 @@ let package = Package(
     // MARK: Core module that ties everything together
 
     .target(
-      name: "Core",
+      name: "CoreArch",
 
       dependencies: [
-        "Domain",
-        "Presentation",
-        "Infrastructure",
+        "CoreDomain",
+        "CorePresentation",
+        "CoreInfrastructure",
       ],
       path: "Sources/Core",
       packageAccess: true
@@ -49,35 +49,35 @@ let package = Package(
     // MARK: Domain layer
 
     .target(
-      name: "Domain",
+      name: "CoreDomain",
       path: "Sources/Domain"
     ),
 
     // MARK: Presentation layer
 
     .target(
-      name: "Presentation",
-      dependencies: ["Domain"],
+      name: "CorePresentation",
+      dependencies: ["CoreDomain"],
       path: "Sources/Presentation"
     ),
 
     // MARK: Infrastructure layer
 
     .target(
-      name: "Infrastructure",
-      dependencies: ["Domain"],
+      name: "CoreInfrastructure",
+      dependencies: ["CoreDomain"],
       path: "Sources/Infrastructure"
     ),
 
     // MARK: - TESTS
 
     .testTarget(
-      name: "Tests",
+      name: "CoreTests",
       dependencies: [
-        "Core",
-        "Domain",
-        "Infrastructure",
-        "Presentation",
+        "CoreArch",
+        "CoreDomain",
+        "CoreInfrastructure",
+        "CorePresentation",
       ],
       path: "Tests"
     ),

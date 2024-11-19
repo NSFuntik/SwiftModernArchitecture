@@ -49,9 +49,9 @@ dependencies: [
 
 2. Import the modules you need:
 ```swift
-import Domain
-import Presentation
-import Infrastructure
+import CoreDomain
+import CorePresentation
+import CoreInfrastructure
 ```
 
 ## Basic Usage

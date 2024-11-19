@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Domain
+import CoreDomain
 import Foundation
 
 public protocol URLSessionProtocol {

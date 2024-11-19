@@ -4,9 +4,9 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-@testable import Domain
-@testable import Infrastructure
-@testable import Presentation
+@testable import CoreDomain
+@testable import CoreInfrastructure
+@testable import CorePresentation
 import XCTest
 
 final class APIClientTests: XCTestCase {
