@@ -5,23 +5,35 @@
 //  Created by NSFuntik on 11/18/24.
 //
 import Foundation
-@_exported import Infrastructure
+import Infrastructure
 
 public enum ArticleRequest {
   case all
   case search(String)
 }
 
-enum ArticlesEndpoint: APIEndpoint {
+enum ArticlesEndpoint: Endpoint {
+  var baseURL: URL {
+    URL(string: "https://www.nytco.com")!
+  }
+
+  var headers: [String: String]? {
+    ["Content-Type": "application/json"]
+  }
+
+  var parameters: [String: Any]? {
+    [:]
+  }
+
   case all
   case search(String)
 
   var path: String {
     switch self {
     case .all:
-      return "/news.xml"
+      return "/rss"
     case .search:
-      return "/articles.xml"
+      return "/rss/search"
     }
   }
 

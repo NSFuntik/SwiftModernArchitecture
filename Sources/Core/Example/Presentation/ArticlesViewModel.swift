@@ -4,7 +4,6 @@
 //
 //  Created by NSFuntik on 11/18/24.
 //
-import Domain
 import Foundation
 import Infrastructure
 
@@ -27,7 +26,7 @@ public final class ArticlesViewModel: ObservableObject {
   // MARK: - Preview Helper
    
   public static func preview(url: URL) -> ArticlesViewModel {
-    let apiClient = APIClient(config: .init(baseURL: url))
+    let apiClient: NetworkManaging = NetworkManager.shared
     let storage = UserDefaultsStorage()
     let feature = ArticlesFeature(apiClient: apiClient, storage: storage)
     return ArticlesViewModel(feature: feature)
