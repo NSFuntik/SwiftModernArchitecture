@@ -5,8 +5,8 @@
 //  Created by NSFuntik on 11/18/24.
 //
 
-import Domain
 import Foundation
+import Infrastructure
 import Presentation
 
 /// A feature that manages articles, providing functionalities such as fetching, refreshing, and searching articles.
@@ -31,7 +31,7 @@ public final class ArticlesFeature: Feature {
 
   // MARK: - Properties
 
-  private let apiClient: APIClient
+  private let apiClient: NetworkManaging
   private let storage: StorageService
 
   /// The current state of the articles feature, published to observe changes.
@@ -43,7 +43,7 @@ public final class ArticlesFeature: Feature {
   /// - Parameters:
   ///   - apiClient: The API client used to fetch articles.
   ///   - storage: The storage service used to cache articles.
-  public init(apiClient: APIClient, storage: StorageService) {
+  public init(apiClient: NetworkManaging, storage: StorageService) {
     self.apiClient = apiClient
     self.storage = storage
   }
@@ -98,7 +98,7 @@ public final class ArticlesFeature: Feature {
     if let cached: [Article] = try? storage.retrieve(for: "articles") {
       return cached
     }
-    let articlesData: Data = try await apiClient.request(ArticlesEndpoint.all)
+    let articlesData: Data = try await apiClient.fetch(from: ArticlesEndpoint.all)
     let articles: [Article] = try JSONDecoder().decode(
       [Article].self,
       from: articlesData
@@ -114,7 +114,7 @@ public final class ArticlesFeature: Feature {
   /// - Throws: An error if the search fails.
   /// - Returns: An array of articles that match the search query.
   private func searchArticles(_ query: String) async throws -> [Article] {
-    let articlesData: Data = try await apiClient.request(ArticlesEndpoint.search(query))
+    let articlesData: Data = try await apiClient.fetch(from: ArticlesEndpoint.search(query))
     let articles: [Article] = try JSONDecoder().decode(
       [Article].self,
       from: articlesData
@@ -126,6 +126,7 @@ public final class ArticlesFeature: Feature {
 //  private let mapper: ArticleMapper = .init()
 }
 
+// TODO: - Add mapper
 // public final class ArticleMapper: Mapper {
 //  public typealias Input = RSSItem
 //  public typealias Output = Article

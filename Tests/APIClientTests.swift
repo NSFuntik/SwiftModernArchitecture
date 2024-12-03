@@ -42,7 +42,6 @@ final class APIClientTests: XCTestCase {
     // Then
     XCTAssertEqual(response, expectedResponse)
   }
-
   func testFailedRequest() async throws {
     // Given
     mockSession.nextError = URLError(.badServerResponse)
